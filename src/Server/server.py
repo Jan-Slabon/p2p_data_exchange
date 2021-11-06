@@ -7,10 +7,10 @@ class Server(DatagramProtocol):
 
     def datagramReceived(self, datagram, addr):
         if datagram.decode('utf-8') == "ready":
-            self.transport.write("\n".join([str(x) for x in self.clients]).encode('utf-8'), addr)
             self.clients.add(addr)
             print(addr)
-
+        elif datagram.decode('utf-8') == "sending":
+            self.transport.write("\n".join([str(x) for x in self.clients]).encode('utf-8'), addr)
 
 
 if __name__ == "__main__":
